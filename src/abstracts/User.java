@@ -56,5 +56,9 @@ public abstract class User {
         }
     }
 
+    public boolean verifyPassword(String password) {
+        return this.password.equals(password);
+    }
+
     //public abstract void getRiwayatTransaksi(Transaksi[] transaksi); //wtf?
 }

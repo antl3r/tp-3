@@ -19,21 +19,6 @@ public class UserRepository {
     private List<User> userList = new ArrayList<>(); 
 
     /**
-     * Retrieves the role of a user by their username.
-     *
-     * @param username the username of the user
-     * @return the role of the user, or an empty string if the user is not found
-     */
-    public String getUserRole(String username) {
-        for (User user : userList) {
-            if (user.getUsername().equals(username)) {
-                return user.getRole();
-            }
-        }
-        return new String();
-    }
-
-    /**
      * Retrieves all roles of users by their username, ignoring the "Admin" role.
      *
      * @param username the username of the user
@@ -92,9 +77,16 @@ public class UserRepository {
      * Adds a user to the repository.
      *
      * @param user the User object to add
+     * @throws IllegalArgumentException if a user with the same username and role already exists
      */
-    public void addUser(User user) {
+    public Boolean addUser(User user) {
+        for (User existingUser : userList) {
+            if (existingUser.getUsername().equals(user.getUsername()) && existingUser.getRole().equals(user.getRole())) {
+                return false;
+            }
+        }
         userList.add(user);
+        return true;
     }
 
     /**

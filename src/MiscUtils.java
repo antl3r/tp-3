@@ -15,17 +15,8 @@ public class MiscUtils {
         "============== Selamat datang di Burhanpedia! ===============\n" +
         "=============================================================\n";
 
-    public static final void loopMenu(AppMenu mainMenu, Scanner input, int stopNumber) {
-        while (true) {
-            mainMenu.displayMenu();
-            int choice = input.nextInt();
-            mainMenu.executeOption(choice);
-            if (choice == stopNumber) break; // Stop looping if they choose number 4
-        }
-    }
-
     public static final String textPrompt(String promptText, Scanner input) {
-        System.out.println(promptText);
+        System.out.print(promptText);
         return input.nextLine();
     }
 }
