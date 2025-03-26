@@ -1,6 +1,5 @@
 package interfaces;
 
-
 public interface SystemMenu {
     /**
      * Method yang digunakan untuk menampilkan pilihan menu suatu class yang mengimplementasikan SystemMenu.
