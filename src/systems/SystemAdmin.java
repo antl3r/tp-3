@@ -28,11 +28,11 @@ public class SystemAdmin implements SystemMenu {
                 
             }),
             new MenuItem(5, "Kembali ke menu utama", () -> {
-                
+                System.out.println("Kembali ke menu utama..");
             })
         );
 
-        System.out.println("===== MENU PEMBELI =====");
+        System.out.println("===== MENU ADMIN =====");
         menu.displayMenu();
         menu.executeOption(input.nextInt());
     }

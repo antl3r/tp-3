@@ -28,7 +28,7 @@ public class SystemPengirim implements SystemMenu {
                 // Implement the action for "Ubah Harga Barang"
             }),
             new MenuItem(5, "Kembali ke menu utama", () -> {
-                // Implement the action for "Kirim Barang"
+                System.out.println("Kembali ke menu utama..");
             })
         );
 
