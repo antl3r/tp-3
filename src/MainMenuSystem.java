@@ -35,17 +35,37 @@ public class MainMenuSystem implements SystemMenu {
 
     public void showMenu() {
         while (true) {
+            System.out.println(MiscUtils.ASCII_GREETING);
             mainMenu.displayMenu();
             mainMenu.executeOption(input.nextInt());
         }
     }
 
     public void handleLogin() {
-        
+        UserRepository userRepo = mainRepository.getUserRepo();
+        System.out.println("===== LOGIN =====");
+
+        input.nextLine(); //the first one always gets consumed due to keyboard newline lol
+        String username = MiscUtils.textPrompt("Masukkan username: ", input);
+        String password = MiscUtils.textPrompt("Masukkan password: ", input);
+
+        User user = userRepo.getUserByName(username);
+        if (user == null) {
+            System.out.println("Tidak ada user dengan username " + username);
+            return;
+        } else {
+            if(user.verifyPassword(password)){
+                //login success
+            } else {
+                System.out.println("Password salah!");
+                return;
+            }
+        }
     }
 
     public void handleRegister() {
         UserRepository userRepo = mainRepository.getUserRepo();
+        System.out.println("===== REGISTRASI =====");
 
         input.nextLine(); //the first one always gets consumed due to keyboard newline lol
         String username = MiscUtils.textPrompt("Masukkan username: ", input);
@@ -60,7 +80,7 @@ public class MainMenuSystem implements SystemMenu {
         System.out.println(password);
 
         if(potentialExistingUser != null) {
-            if(password != potentialExistingUser.getPassword()) {
+            if(!potentialExistingUser.verifyPassword(password)) {
                 System.out.println(password);
                 System.out.println("Password salah!"); //always triggers for some reason?
                 return;
