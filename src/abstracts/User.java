@@ -24,6 +24,10 @@ public abstract class User {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getRole() {
         return role;
     }
@@ -45,7 +49,7 @@ public abstract class User {
     }
 
     public void setRole(String role) {
-        if (role.equals("Pembeli") || role.equals("Penjual") || role.equals("Pengirim")) {
+        if (role.equals("Pembeli") || role.equals("Penjual") || role.equals("Pengirim") || role.equals("Admin")) {
             this.role = role;
         } else {
             throw new IllegalArgumentException("Role can only be either 'Pembeli', 'Penjual', or 'Pengirim'");

@@ -1,3 +1,7 @@
+
+
+import java.util.Scanner;
+
 import interfaces.SystemMenu;
 import systems.SystemAdmin;
 import systems.SystemPembeli;
@@ -9,11 +13,11 @@ public class MainMenuSystem implements SystemMenu {
     SystemPenjual systemPenjual = new SystemPenjual();
     SystemPengirim systemPengirim = new SystemPengirim();
     SystemAdmin systemAdmin = new SystemAdmin();
+    Scanner input = new Scanner(System.in);
+    BurhanPedia mainRepository = new BurhanPedia();
 
     public String showMenu() {
-        System.out.println(MiscUtils.ASCII_GREETING);
-
-        return ("lol");
+        return MiscUtils.ASCII_GREETING;
     }
 
     public void handleMenu() {
@@ -21,9 +25,15 @@ public class MainMenuSystem implements SystemMenu {
     }
 
     public void handleLogin() {
-        // Implement login handling logic
-        // Check for overlapping roles and handle login accordingly
-        // If overlapping roles, ask user to choose role and handle balance check
+        System.out.print("Enter username: ");
+        String username = input.nextLine();
+        System.out.print("Enter password: ");
+        String password = input.nextLine();
+
+        mainRepository.getAdminRepo();
+        mainRepository.getPromoRepo();
+        mainRepository.getUserRepo();
+        mainRepository.getVoucherRepo();
     }
 
     public void handleRegister() {
@@ -43,9 +53,7 @@ public class MainMenuSystem implements SystemMenu {
         // Combine balances for overlapping roles and display
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("hello");
-
-        
+    public static void main(String[] args) {
+        System.out.println(MiscUtils.ASCII_GREETING);
     }
 }

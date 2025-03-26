@@ -13,7 +13,10 @@ import java.util.ArrayList;
  * from an internal array.
  */
 public class UserRepository {
-    private List<User> userList = new ArrayList<>(); // We are not using arrays 🥀
+    /**
+    * We are not using arrays bro 🥀
+    */
+    private List<User> userList = new ArrayList<>(); 
 
     /**
      * Retrieves the role of a user by their username.
@@ -28,6 +31,22 @@ public class UserRepository {
             }
         }
         return new String();
+    }
+
+    /**
+     * Retrieves all roles of users by their username, ignoring the "Admin" role.
+     *
+     * @param username the username of the user
+     * @return a list of roles of the user, or an empty list if no users are found
+     */
+    public List<String> getUserRoles(String username) {
+        List<String> roles = new ArrayList<>();
+        for (User user : userList) {
+            if (user.getUsername().equals(username) && !user.getRole().equals("Admin")) {
+                roles.add(user.getRole());
+            }
+        }
+        return roles;
     }
 
     /**
