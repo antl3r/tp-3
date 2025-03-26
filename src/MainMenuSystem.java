@@ -16,11 +16,11 @@ import systems.SystemPengirim;
 import systems.SystemPenjual;
 
 public class MainMenuSystem implements SystemMenu {
-    SystemPembeli systemPembeli = new SystemPembeli();
+    Scanner input = new Scanner(System.in);
+    SystemPembeli systemPembeli = new SystemPembeli(input);
     SystemPenjual systemPenjual = new SystemPenjual();
     SystemPengirim systemPengirim = new SystemPengirim();
     SystemAdmin systemAdmin = new SystemAdmin();
-    Scanner input = new Scanner(System.in);
     BurhanPedia mainRepository = new BurhanPedia();
 
     AppMenu mainMenu = new AppMenu(

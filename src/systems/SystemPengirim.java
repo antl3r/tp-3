@@ -8,8 +8,4 @@ public class SystemPengirim implements SystemMenu {
         throw new UnsupportedOperationException("Unimplemented method 'showMenu'");
     }
 
-    public void handleMenu() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleMenu'");
-    }    
 }
