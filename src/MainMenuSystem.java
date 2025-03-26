@@ -2,6 +2,8 @@
 
 import java.util.Scanner;
 
+import classes.AppMenu;
+import classes.MenuItem;
 import interfaces.SystemMenu;
 import systems.SystemAdmin;
 import systems.SystemPembeli;
@@ -16,44 +18,51 @@ public class MainMenuSystem implements SystemMenu {
     Scanner input = new Scanner(System.in);
     BurhanPedia mainRepository = new BurhanPedia();
 
-    public String showMenu() {
-        return MiscUtils.ASCII_GREETING;
-    }
+    AppMenu mainMenu = new AppMenu(
+        new MenuItem(1, "Login", () -> handleLogin()),
+        new MenuItem(2, "Register", () -> handleRegister()),
+        new MenuItem(3, "Hari Selanjutnya", () -> handleNextDay()),
+        new MenuItem(4, "Keluar", () -> {
+            System.out.println("Exiting program...");
+            System.exit(0);
+        })
+    );
 
-    public void handleMenu() {
-        
+    public void showMenu() {
+        MiscUtils.loopMenu(mainMenu, input, 4);
     }
 
     public void handleLogin() {
-        System.out.print("Enter username: ");
-        String username = input.nextLine();
-        System.out.print("Enter password: ");
-        String password = input.nextLine();
-
-        mainRepository.getAdminRepo();
-        mainRepository.getPromoRepo();
-        mainRepository.getUserRepo();
-        mainRepository.getVoucherRepo();
+        
     }
 
     public void handleRegister() {
-        // Implement register handling logic
-        // Allow overlapping roles for the same username
-        // Ask for password verification if adding a new role
+        AppMenu registerMenu = new AppMenu(
+            new MenuItem(1, "Penjual", () -> {
+                System.out.print("Masukkan nama toko: ");
+                String storeName = input.nextLine();
+                System.out.println("Registrasi akun penjual berhasil!" + storeName);                
+            }),
+            new MenuItem(2, "Pembeli", () -> {}),
+            new MenuItem(3, "Pengirim", () -> {}),
+            new MenuItem(4, "Batalkan register", () -> {})
+        );
+
+        registerMenu.displayMenu();
+        registerMenu.executeOption(input.nextInt());
     }
 
     public void handleNextDay() {
-        // Implement next day handling logic
-        // Handle transaction completion with the Sender role
-        // Implement refund mechanism for incomplete transactions
+        
     }
 
     public void handleCekSaldoAntarAkun() {
-        // Implement check balance between roles handling logic
-        // Combine balances for overlapping roles and display
+        
     }
 
     public static void main(String[] args) {
-        System.out.println(MiscUtils.ASCII_GREETING);
+        MainMenuSystem menuSystem = new MainMenuSystem(); // I'm an intelligent coder
+
+        menuSystem.showMenu();
     }
 }

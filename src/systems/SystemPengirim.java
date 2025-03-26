@@ -3,7 +3,7 @@ package systems;
 import interfaces.SystemMenu;
 
 public class SystemPengirim implements SystemMenu {
-    public String showMenu() {
+    public void showMenu() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'showMenu'");
     }

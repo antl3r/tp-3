@@ -1,3 +1,7 @@
+import java.util.Scanner;
+
+import classes.AppMenu;
+
 public class MiscUtils {
     public static final String ASCII_GREETING = 
         "=============================================================\n" +
@@ -10,4 +14,18 @@ public class MiscUtils {
         "=============================================================\n" +
         "============== Selamat datang di Burhanpedia! ===============\n" +
         "=============================================================\n";
+
+    public static final void loopMenu(AppMenu mainMenu, Scanner input, int stopNumber) {
+        while (true) {
+            mainMenu.displayMenu();
+            int choice = input.nextInt();
+            mainMenu.executeOption(choice);
+            if (choice == stopNumber) break; // Stop looping if they choose number 4
+        }
+    }
+
+    public static final String textPrompt(String promptText, Scanner input) {
+        System.out.println(promptText);
+        return input.nextLine();
+    }
 }
