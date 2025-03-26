@@ -32,8 +32,13 @@ public class SystemAdmin implements SystemMenu {
             })
         );
 
-        System.out.println("===== MENU ADMIN =====");
-        menu.displayMenu();
-        menu.executeOption(input.nextInt());
+        while(true) {
+            System.out.println("===== MENU ADMIN =====");
+            menu.displayMenu();
+            int selection = input.nextInt();
+            menu.executeOption(selection);
+
+            if (selection == 5) return;
+        }
     }
 }

@@ -32,8 +32,13 @@ public class SystemPengirim implements SystemMenu {
             })
         );
 
-        System.out.println("===== MENU PENGIRIM =====");
-        menu.displayMenu();
-        menu.executeOption(input.nextInt());
+        while(true) {
+            System.out.println("===== MENU PENGIRIM =====");
+            menu.displayMenu();
+            int selection = input.nextInt();
+            menu.executeOption(selection);
+
+            if (selection == 5) return;
+        }
     }
 }

@@ -40,8 +40,13 @@ public class SystemPembeli implements SystemMenu {
             })
         );
 
-        System.out.println("===== MENU PEMBELI =====");
-        menu.displayMenu();
-        menu.executeOption(input.nextInt());
+        while(true) {
+            System.out.println("===== MENU PEMBELI =====");
+            menu.displayMenu();
+            int selection = input.nextInt();
+            menu.executeOption(selection);
+
+            if (selection == 8) return;
+        }
     }
 }

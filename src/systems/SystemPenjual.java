@@ -44,8 +44,13 @@ public class SystemPenjual implements SystemMenu {
             })
         );
 
-        System.out.println("===== MENU PENJUAL =====");
-        menu.displayMenu();
-        menu.executeOption(input.nextInt());
+        while(true) {
+            System.out.println("===== MENU PENJUAL =====");
+            menu.displayMenu();
+            int selection = input.nextInt();
+            menu.executeOption(selection);
+
+            if (selection == 9) return;
+        }
     }
 }
