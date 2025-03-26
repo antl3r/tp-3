@@ -18,22 +18,22 @@ import systems.SystemPenjual;
 public class MainMenuSystem implements SystemMenu {
     Scanner input = new Scanner(System.in);
     SystemPembeli systemPembeli = new SystemPembeli(input);
-    SystemPenjual systemPenjual = new SystemPenjual();
-    SystemPengirim systemPengirim = new SystemPengirim();
-    SystemAdmin systemAdmin = new SystemAdmin();
+    SystemPenjual systemPenjual = new SystemPenjual(input);
+    SystemPengirim systemPengirim = new SystemPengirim(input);
+    SystemAdmin systemAdmin = new SystemAdmin(input);
     BurhanPedia mainRepository = new BurhanPedia();
 
-    AppMenu mainMenu = new AppMenu(
-        new MenuItem(1, "Login", () -> handleLogin()),
-        new MenuItem(2, "Register", () -> handleRegister()),
-        new MenuItem(3, "Hari Selanjutnya", () -> handleNextDay()),
-        new MenuItem(4, "Keluar", () -> {
-            System.out.println("Exiting program...");
-            System.exit(0);
-        })
-    );
-
     public void showMenu() {
+        AppMenu mainMenu = new AppMenu(
+            new MenuItem(1, "Login", () -> handleLogin()),
+            new MenuItem(2, "Register", () -> handleRegister()),
+            new MenuItem(3, "Hari Selanjutnya", () -> handleNextDay()),
+            new MenuItem(4, "Keluar", () -> {
+                System.out.println("Exiting program...");
+                System.exit(0);
+            })
+        );
+
         while (true) {
             System.out.println(MiscUtils.ASCII_GREETING);
             mainMenu.displayMenu();
@@ -41,35 +41,30 @@ public class MainMenuSystem implements SystemMenu {
         }
     }
 
-    public void handleLogin() {    
+    public void handleLogin() {
+        input.nextLine(); //consumer again
         System.out.print("Masukkan username: ");
         String name = input.nextLine();
         if (userExists(name)){
             System.out.print("Masukkan password: ");
             String password = input.nextLine();
             User user = mainRepository.getUserRepo().getUserByName(name);
-            if (user.getPassword().equals(password)){
-                switch (user.getRole()){
-                    case "Pembeli":
-                        systemPembeli.showMenu();
-                        break;
-                    case "Penjual":
-                        systemPenjual.showMenu();
-                        break;
-                    case "Pengirim":
-                        systemPengirim.showMenu();
-                        break;
-                    case "Admin":
-                        systemAdmin.showMenu();
-                        break;
-                }
+            if (user.verifyPassword(password)){
+                AppMenu roleMenu = new AppMenu(
+                    new MenuItem(1, "Pembeli", () -> systemPembeli.showMenu()),
+                    new MenuItem(2, "Penjual", () -> systemPenjual.showMenu()),
+                    new MenuItem(3, "Pengirim", () -> systemPengirim.showMenu()),
+                    new MenuItem(4, "Admin", () -> systemAdmin.showMenu())
+                );
+
+                roleMenu.displayMenu();
+                roleMenu.executeOption(input.nextInt());
             } else {
                 System.out.println("Username atau password salah!");
             }
         } else {
             System.out.println("Username tidak ditemukan!");
         }
-    
     }
 
     public boolean userExists(String name){

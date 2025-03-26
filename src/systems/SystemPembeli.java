@@ -13,7 +13,7 @@ public class SystemPembeli implements SystemMenu {
     }
 
     public void showMenu() {
-        AppMenu pembeliMenu = new AppMenu(
+        AppMenu menu = new AppMenu(
             new MenuItem(1, "Cek Saldo", () -> {
                 
             }),
@@ -41,7 +41,7 @@ public class SystemPembeli implements SystemMenu {
         );
 
         System.out.println("===== MENU PEMBELI =====");
-        pembeliMenu.displayMenu();
-        pembeliMenu.executeOption(input.nextInt());
+        menu.displayMenu();
+        menu.executeOption(input.nextInt());
     }
 }
