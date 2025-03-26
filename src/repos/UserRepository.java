@@ -2,18 +2,18 @@ package repos;
 
 import abstracts.User;
 import java.util.UUID;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @class UserRepository
  * @brief A repository class for managing User objects.
  * 
  * This class provides methods to add, remove, and retrieve User objects
- * from an internal list.
+ * from an internal array.
  */
 public class UserRepository {
-    private List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>(); // We are not using arrays 🥀
 
     /**
      * Retrieves the role of a user by their username.

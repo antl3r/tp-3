@@ -24,8 +24,4 @@ public class BurhanPedia {
     public AdminRepository getAdminRepo() {
         return adminRepo;
     }
-
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-    }
 }

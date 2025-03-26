@@ -8,9 +8,9 @@ public interface SystemMenu {
     String showMenu();
 
     /**
-     * Method yang digunakan untuk mengatasi segala macam opsi pilihan suatu system.
+     * "Method yang digunakan untuk mengatasi segala macam opsi pilihan suatu system.
      * Perbedaannya dengan showMenu() adalah method ini akan meminta input berdasarkan pilihan menu yang diberikan showMenu,
-     * kemudian memprosesnya lebih lanjut.
+     * kemudian memprosesnya lebih lanjut." whatever the fuck that means. specified no input field ironically
      */
     void handleMenu();
 }
