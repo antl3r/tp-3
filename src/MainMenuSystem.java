@@ -93,16 +93,25 @@ public class MainMenuSystem implements SystemMenu {
                 input.nextLine(); //the first one always gets consumed due to keyboard newline lol
                 String storeName = MiscUtils.textPrompt("Masukkan nama toko: ", input);
                 
-                userRepo.addUser(new Penjual(username, password, storeName));
-                System.out.println("Registrasi akun penjual berhasil!");             
+                if (userRepo.addUser(new Penjual(username, password, storeName))) {
+                    System.out.println("Registrasi akun penjual berhasil!");
+                } else {
+                    System.out.println("User sudah punya akun role penjual!");
+                }
             }),
             new MenuItem(2, "Pembeli", () -> {
-                userRepo.addUser(new Pembeli(username, password));
-                System.out.println("Registrasi akun pembeli berhasil!");
+                if (userRepo.addUser(new Pembeli(username, password))) {
+                    System.out.println("Registrasi akun pembeli berhasil!");
+                } else {
+                    System.out.println("User sudah punya akun role pembeli!");
+                }
             }),
             new MenuItem(3, "Pengirim", () -> {
-                userRepo.addUser(new Pengirim(username, password));
-                System.out.println("Registrasi akun pengirim berhasil!");
+                if (userRepo.addUser(new Pengirim(username, password))) {
+                    System.out.println("Registrasi akun pengirim berhasil!");
+                } else {
+                    System.out.println("User sudah punya akun role pengirim!");
+                }
             }),
             new MenuItem(4, "Batalkan register", () -> {
                 System.out.println("Registrasi dibatalkan, kembali ke menu utama...");
