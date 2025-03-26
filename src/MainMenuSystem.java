@@ -11,9 +11,9 @@ public class MainMenuSystem implements SystemMenu {
     SystemAdmin systemAdmin = new SystemAdmin();
 
     public String showMenu() {
-        return (
-            MiscUtils.ASCII_GREETING
-        );
+        System.out.println(MiscUtils.ASCII_GREETING);
+
+        return ("lol");
     }
 
     public void handleMenu() {
@@ -44,6 +44,8 @@ public class MainMenuSystem implements SystemMenu {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        System.out.println("hello");
+
+        
     }
 }
