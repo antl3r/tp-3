@@ -1,16 +1,17 @@
 
 
-import java.util.Scanner;
-
+import abstracts.User;
 import classes.AppMenu;
 import classes.MenuItem;
 import interfaces.SystemMenu;
+import java.util.Scanner;
 import systems.SystemAdmin;
 import systems.SystemPembeli;
 import systems.SystemPengirim;
 import systems.SystemPenjual;
 
 public class MainMenuSystem implements SystemMenu {
+    BurhanPedia burhanpedia = new BurhanPedia();
     SystemPembeli systemPembeli = new SystemPembeli();
     SystemPenjual systemPenjual = new SystemPenjual();
     SystemPengirim systemPengirim = new SystemPengirim();
@@ -32,9 +33,46 @@ public class MainMenuSystem implements SystemMenu {
         MiscUtils.loopMenu(mainMenu, input, 4);
     }
 
-    public void handleLogin() {
-        
+    public void handleLogin() {    
+        System.out.print("Masukkan username: ");
+        String name = input.nextLine();
+        if (userExists(name)){
+            System.out.print("Masukkan password: ");
+            String password = input.nextLine();
+            User user = burhanpedia.getUserRepo().getUserByName(name);
+            if (user.getPassword().equals(password)){
+                switch (user.getRole()){
+                    case "Pembeli":
+                        systemPembeli.showMenu();
+                        break;
+                    case "Penjual":
+                        systemPenjual.showMenu();
+                        break;
+                    case "Pengirim":
+                        systemPengirim.showMenu();
+                        break;
+                    case "Admin":
+                        systemAdmin.showMenu();
+                        break;
+                }
+            } else {
+                System.out.println("Username atau password salah!");
+            }
+        } else {
+            System.out.println("Username tidak ditemukan!");
+        }
+    
     }
+
+    public boolean userExists(String name){
+        for (User user : burhanpedia.getUserRepo().getAll()){
+            if (user.getUsername().equalsIgnoreCase(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void handleRegister() {
         AppMenu registerMenu = new AppMenu(
