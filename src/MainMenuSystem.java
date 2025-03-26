@@ -41,27 +41,46 @@ public class MainMenuSystem implements SystemMenu {
         }
     }
 
-    public void handleLogin() {
-        UserRepository userRepo = mainRepository.getUserRepo();
-        System.out.println("===== LOGIN =====");
-
-        input.nextLine(); //the first one always gets consumed due to keyboard newline lol
-        String username = MiscUtils.textPrompt("Masukkan username: ", input);
-        String password = MiscUtils.textPrompt("Masukkan password: ", input);
-
-        User user = userRepo.getUserByName(username);
-        if (user == null) {
-            System.out.println("Tidak ada user dengan username " + username);
-            return;
-        } else {
-            if(user.verifyPassword(password)){
-                //login success
+    public void handleLogin() {    
+        System.out.print("Masukkan username: ");
+        String name = input.nextLine();
+        if (userExists(name)){
+            System.out.print("Masukkan password: ");
+            String password = input.nextLine();
+            User user = mainRepository.getUserRepo().getUserByName(name);
+            if (user.getPassword().equals(password)){
+                switch (user.getRole()){
+                    case "Pembeli":
+                        systemPembeli.showMenu();
+                        break;
+                    case "Penjual":
+                        systemPenjual.showMenu();
+                        break;
+                    case "Pengirim":
+                        systemPengirim.showMenu();
+                        break;
+                    case "Admin":
+                        systemAdmin.showMenu();
+                        break;
+                }
             } else {
-                System.out.println("Password salah!");
-                return;
+                System.out.println("Username atau password salah!");
+            }
+        } else {
+            System.out.println("Username tidak ditemukan!");
+        }
+    
+    }
+
+    public boolean userExists(String name){
+        for (User user : mainRepository.getUserRepo().getAll()){
+            if (user.getUsername().equalsIgnoreCase(name)){
+                return true;
             }
         }
+        return false;
     }
+
 
     public void handleRegister() {
         UserRepository userRepo = mainRepository.getUserRepo();
