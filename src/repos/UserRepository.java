@@ -92,8 +92,14 @@ public class UserRepository {
      * Adds a user to the repository.
      *
      * @param user the User object to add
+     * @throws IllegalArgumentException if a user with the same username and role already exists
      */
     public void addUser(User user) {
+        for (User existingUser : userList) {
+            if (existingUser.getUsername().equals(user.getUsername()) && existingUser.getRole().equals(user.getRole())) {
+                throw new IllegalArgumentException("Seorang pengguna dengan username dan rolke yang sama sudah ada.");
+            }
+        }
         userList.add(user);
     }
 

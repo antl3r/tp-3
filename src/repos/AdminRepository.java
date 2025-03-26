@@ -3,6 +3,8 @@ package repos;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.Admin;
+
 public class AdminRepository {
     /**
      * We are not using arrays bro 🥀

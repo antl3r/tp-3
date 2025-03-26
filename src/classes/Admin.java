@@ -1,4 +1,4 @@
-package repos;
+package classes;
 
 import abstracts.User;
 
