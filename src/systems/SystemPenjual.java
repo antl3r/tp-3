@@ -1,10 +1,10 @@
 package systems;
 
 import java.util.Scanner;
-
 import classes.AppMenu;
 import classes.MenuItem;
 import interfaces.SystemMenu;
+import utils.MiscUtils;
 
 public class SystemPenjual implements SystemMenu {
     private Scanner input;
@@ -47,7 +47,7 @@ public class SystemPenjual implements SystemMenu {
         while(true) {
             System.out.println("===== MENU PENJUAL =====");
             menu.displayMenu();
-            int selection = Integer.parseInt(input.nextLine());
+            int selection = MiscUtils.intPrompt("Perintah: ", input); // Accessing MiscUtils here
             menu.executeOption(selection);
 
             if (selection == 9) return;

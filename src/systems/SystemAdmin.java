@@ -5,6 +5,7 @@ import java.util.Scanner;
 import classes.AppMenu;
 import classes.MenuItem;
 import interfaces.SystemMenu;
+import utils.MiscUtils;
 
 public class SystemAdmin implements SystemMenu {
     private Scanner input;
@@ -35,7 +36,7 @@ public class SystemAdmin implements SystemMenu {
         while(true) {
             System.out.println("===== MENU ADMIN =====");
             menu.displayMenu();
-            int selection = Integer.parseInt(input.nextLine());
+            int selection = MiscUtils.intPrompt("Perintah: ", input); 
             menu.executeOption(selection);
 
             if (selection == 5) return;

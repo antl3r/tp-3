@@ -3,6 +3,8 @@ package systems;
 import classes.AppMenu;
 import classes.MenuItem;
 import interfaces.SystemMenu;
+import utils.MiscUtils;
+
 import java.util.Scanner;
 
 public class SystemPembeli implements SystemMenu {
@@ -43,7 +45,7 @@ public class SystemPembeli implements SystemMenu {
         while(true) {
             System.out.println("===== MENU PEMBELI =====");
             menu.displayMenu();
-            int selection = Integer.parseInt(input.nextLine());
+            int selection = MiscUtils.intPrompt("Perintah: ", input); 
             menu.executeOption(selection);
 
             if (selection == 8) return;
