@@ -6,8 +6,8 @@ public class TransactionStatus {
     private Date timestamp;
     private String status;
 
-    public TransactionStatus(Date timestamp, String status) {
-        this.timestamp = timestamp;
+    public TransactionStatus(String status) {
+        this.timestamp = new Date(); // Set timestamp to current time
         setStatus(status);
     }
 

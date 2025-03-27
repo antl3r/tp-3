@@ -37,12 +37,11 @@ public class MainMenuSystem implements SystemMenu {
         while (true) {
             System.out.println(MiscUtils.ASCII_GREETING);
             mainMenu.displayMenu();
-            mainMenu.executeOption(input.nextInt());
+            mainMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));;
         }
     }
 
     public void handleLogin() {
-        input.nextLine(); //consumer again
         System.out.print("Masukkan username: ");
         String name = input.nextLine();
         if (userExists(name)){
@@ -58,7 +57,7 @@ public class MainMenuSystem implements SystemMenu {
                 );
 
                 roleMenu.displayMenu();
-                roleMenu.executeOption(input.nextInt());
+                roleMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));
             } else {
                 System.out.println("Username atau password salah!");
             }
@@ -81,7 +80,6 @@ public class MainMenuSystem implements SystemMenu {
         UserRepository userRepo = mainRepository.getUserRepo();
         System.out.println("===== REGISTRASI =====");
 
-        input.nextLine(); //the first one always gets consumed due to keyboard newline lol
         String username = MiscUtils.textPrompt("Masukkan username: ", input);
 
         User potentialExistingUser = userRepo.getUserByName(username);
@@ -96,7 +94,7 @@ public class MainMenuSystem implements SystemMenu {
         if(potentialExistingUser != null) {
             if(!potentialExistingUser.verifyPassword(password)) {
                 System.out.println(password);
-                System.out.println("Password salah!"); //always triggers for some reason?
+                System.out.println("Password salah!");
                 return;
             }
         }
@@ -104,7 +102,6 @@ public class MainMenuSystem implements SystemMenu {
         System.out.print("Pilih role:");  
         AppMenu registerMenu = new AppMenu(
             new MenuItem(1, "Penjual", () -> {
-                input.nextLine(); //the first one always gets consumed due to keyboard newline lol
                 String storeName = MiscUtils.textPrompt("Masukkan nama toko: ", input);
                 
                 if (userRepo.addUser(new Penjual(username, password, storeName))) {
@@ -133,7 +130,7 @@ public class MainMenuSystem implements SystemMenu {
         );
 
         registerMenu.displayMenu();
-        registerMenu.executeOption(input.nextInt());
+        registerMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));;
     }
 
     public void handleNextDay() {

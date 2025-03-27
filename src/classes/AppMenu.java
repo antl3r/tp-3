@@ -16,7 +16,6 @@ public class AppMenu {
         for (MenuItem option : options) {
             System.out.println(option.number + ". " + option.title);
         }
-        System.out.print("\nPerintah: ");
     }
 
     public Boolean executeOption(int choice) {

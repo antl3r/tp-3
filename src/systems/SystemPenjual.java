@@ -47,7 +47,7 @@ public class SystemPenjual implements SystemMenu {
         while(true) {
             System.out.println("===== MENU PENJUAL =====");
             menu.displayMenu();
-            int selection = input.nextInt();
+            int selection = Integer.parseInt(input.nextLine());
             menu.executeOption(selection);
 
             if (selection == 9) return;

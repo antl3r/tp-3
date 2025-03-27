@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import classes.AppMenu;
-
 public class MiscUtils {
     public static final String ASCII_GREETING = 
         "=============================================================\n" +
@@ -15,8 +13,26 @@ public class MiscUtils {
         "============== Selamat datang di Burhanpedia! ===============\n" +
         "=============================================================\n";
 
-    public static final String textPrompt(String promptText, Scanner input) {
+    public static String textPrompt(String promptText, Scanner input) {
         System.out.print(promptText);
         return input.nextLine();
+    }
+
+    public static Integer intPrompt(String promptText, Scanner input) {
+        while (true) {
+            System.out.print(promptText);
+            String line = input.nextLine();
+            
+            if (line.isEmpty()) {
+                System.out.println("Mohon input tidak kosong.");
+                continue;
+            }
+
+            try {
+                return Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.println("Mohon masukkan angka yang valid.");
+            }
+        }
     }
 }

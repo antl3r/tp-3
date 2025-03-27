@@ -35,7 +35,7 @@ public class SystemAdmin implements SystemMenu {
         while(true) {
             System.out.println("===== MENU ADMIN =====");
             menu.displayMenu();
-            int selection = input.nextInt();
+            int selection = Integer.parseInt(input.nextLine());
             menu.executeOption(selection);
 
             if (selection == 5) return;
