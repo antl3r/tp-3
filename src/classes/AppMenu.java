@@ -28,4 +28,8 @@ public class AppMenu {
         System.out.println("Pilihan tidak valid."); // yang serius dong
         return false;
     }
+
+    public void addMenu(MenuItem menuItem) {
+        this.options.add(menuItem);
+    }
 }

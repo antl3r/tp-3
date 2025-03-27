@@ -1,5 +1,7 @@
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import abstracts.User;
@@ -31,6 +33,13 @@ public class MainMenuSystem implements SystemMenu {
             new MenuItem(4, "Keluar", () -> {
                 System.out.println("Exiting program...");
                 System.exit(0);
+            }),
+            new MenuItem(5, "Crash aja deh", () -> {
+                Object[] o = null;
+
+                while (true) {
+                    o = new Object[] {o};
+                }
             })
         );
 
@@ -48,20 +57,43 @@ public class MainMenuSystem implements SystemMenu {
             System.out.print("Masukkan password: ");
             String password = input.nextLine();
             User user = mainRepository.getUserRepo().getUserByName(name);
-            if (user.verifyPassword(password)){
-                AppMenu roleMenu = new AppMenu(
-                    new MenuItem(1, "Pembeli", () -> systemPembeli.showMenu()),
-                    new MenuItem(2, "Penjual", () -> systemPenjual.showMenu()),
-                    new MenuItem(3, "Pengirim", () -> systemPengirim.showMenu()),
-                    new MenuItem(4, "Admin", () -> systemAdmin.showMenu())
-                );
+
+            if (user.verifyPassword(password)) {
+                List<String> roleArray = mainRepository.getUserRepo().getUserRoles(user.getUsername());
+
+                if (roleArray.isEmpty()) {
+                    System.out.println("User tidak memiliki role yang valid!");
+                    return;
+                }
+
+                AppMenu roleMenu = new AppMenu();
+                int menuIndex = 1;
+
+                for (String role : roleArray) {
+                    switch (role.toLowerCase()) {
+                        case "pembeli":
+                            roleMenu.addMenu(new MenuItem(menuIndex++, "Pembeli", () -> systemPembeli.showMenu()));
+                            break;
+                        case "penjual":
+                            roleMenu.addMenu(new MenuItem(menuIndex++, "Penjual", () -> systemPenjual.showMenu()));
+                            break;
+                        case "pengirim":
+                            roleMenu.addMenu(new MenuItem(menuIndex++, "Pengirim", () -> systemPengirim.showMenu()));
+                            break;
+                        case "admin":
+                            roleMenu.addMenu(new MenuItem(menuIndex++, "Admin", () -> systemAdmin.showMenu()));
+                            break;
+                        default:
+                            System.out.println("Role tidak dikenal: " + role);
+                            break;
+                    }
+                }
 
                 roleMenu.displayMenu();
                 roleMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));
             } else {
                 System.out.println("Username atau password salah!");
-            }
-        } else {
+            }    } else {
             System.out.println("Username tidak ditemukan!");
         }
     }
@@ -110,6 +142,7 @@ public class MainMenuSystem implements SystemMenu {
                     System.out.println("User sudah punya akun role penjual!");
                 }
             }),
+
             new MenuItem(2, "Pembeli", () -> {
                 if (userRepo.addUser(new Pembeli(username, password))) {
                     System.out.println("Registrasi akun pembeli berhasil!");
@@ -117,6 +150,7 @@ public class MainMenuSystem implements SystemMenu {
                     System.out.println("User sudah punya akun role pembeli!");
                 }
             }),
+
             new MenuItem(3, "Pengirim", () -> {
                 if (userRepo.addUser(new Pengirim(username, password))) {
                     System.out.println("Registrasi akun pengirim berhasil!");
@@ -124,6 +158,7 @@ public class MainMenuSystem implements SystemMenu {
                     System.out.println("User sudah punya akun role pengirim!");
                 }
             }),
+
             new MenuItem(4, "Batalkan register", () -> {
                 System.out.println("Registrasi dibatalkan, kembali ke menu utama...");
             })
