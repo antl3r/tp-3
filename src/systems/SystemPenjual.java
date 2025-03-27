@@ -45,7 +45,7 @@ public class SystemPenjual implements SystemMenu {
         );
 
         while(true) {
-            System.out.println("===== MENU PENJUAL =====");
+            MiscUtils.createTitle("MENU PENJUAL");
             menu.displayMenu();
             int selection = MiscUtils.intPrompt("Perintah: ", input); // Accessing MiscUtils here
             menu.executeOption(selection);

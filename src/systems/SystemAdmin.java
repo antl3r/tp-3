@@ -34,7 +34,7 @@ public class SystemAdmin implements SystemMenu {
         );
 
         while(true) {
-            System.out.println("===== MENU ADMIN =====");
+            MiscUtils.createTitle("MENU ADMIN");
             menu.displayMenu();
             int selection = MiscUtils.intPrompt("Perintah: ", input); 
             menu.executeOption(selection);

@@ -1,12 +1,15 @@
 package abstracts;
 import java.util.UUID;
 
+import classes.Transaksi;
+
 public abstract class User {
     private UUID id;
     private String username;
     private String password;
     private String role;
-    private long balance;
+    private long balance; //transaction history not defined in the document but getter is lol
+    private Transaksi[] riwayatTransaksi; // the one array that they could've made a class with add and remove but didn't
 
     public User(String username, String password, String role) {
         this.id = UUID.randomUUID();
@@ -60,5 +63,9 @@ public abstract class User {
         return this.password.equals(password);
     }
 
-    //public abstract void getRiwayatTransaksi(Transaksi[] transaksi); //wtf?
+    public void addBalance(long amount) {
+        this.balance += amount;
+        }
+
+        public abstract Transaksi[] getRiwayatTransaksi();
 }

@@ -36,4 +36,8 @@ public class MiscUtils {
             }
         }
     }
+
+    public static String createTitle(String title) {
+        return ("===== " + title + " =====");
+    }
 }
