@@ -1,10 +1,9 @@
 package systems;
 
-import java.util.Scanner;
-
 import classes.AppMenu;
 import classes.MenuItem;
 import interfaces.SystemMenu;
+import java.util.Scanner;
 import utils.MiscUtils;
 
 public class SystemPengirim implements SystemMenu {
@@ -41,5 +40,21 @@ public class SystemPengirim implements SystemMenu {
 
             if (selection == 5) return;
         }
+    }
+
+    private void handleFindJob(){
+        
+    }
+    
+    private void handleTakeJob(){
+
+    }
+
+    private void handleConfirmJob(){
+
+    }
+
+    private void handleRiwayatTransaksi(){
+
     }
 }
