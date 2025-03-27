@@ -66,6 +66,22 @@ public class UserRepository {
     }
 
     /**
+     * Retrieves a user by their username and role.
+     *
+     * @param username the username of the user
+     * @param role the role of the user
+     * @return the User object, or null if the user is not found
+     */
+    public User getUserByNameAndRole(String username, String role) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username) && user.getRole().equals(role)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Retrieves all users in the repository.
      *
      * @return an array of all User objects

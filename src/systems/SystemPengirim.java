@@ -33,7 +33,7 @@ public class SystemPengirim implements SystemMenu {
         );
 
         while(true) {
-            System.out.println("===== MENU PENGIRIM =====");
+            MiscUtils.createTitle("MENU PENGIRIM");
             menu.displayMenu();
             int selection = MiscUtils.intPrompt("Perintah: ", input); 
             menu.executeOption(selection);

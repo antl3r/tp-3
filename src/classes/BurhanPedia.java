@@ -1,3 +1,4 @@
+package classes;
 import repos.AdminRepository;
 import repos.PromoRepository;
 import repos.UserRepository;

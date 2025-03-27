@@ -1,15 +1,16 @@
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import abstracts.User;
 import classes.AppMenu;
+import classes.BurhanPedia;
 import classes.MenuItem;
 import classes.Pembeli;
 import classes.Pengirim;
 import classes.Penjual;
+import classes.Typewriter;
 import interfaces.SystemMenu;
 import repos.UserRepository;
 import systems.SystemAdmin;
@@ -20,10 +21,6 @@ import utils.MiscUtils;
 
 public class MainMenuSystem implements SystemMenu {
     Scanner input = new Scanner(System.in);
-    SystemPembeli systemPembeli = new SystemPembeli(input);
-    SystemPenjual systemPenjual = new SystemPenjual(input);
-    SystemPengirim systemPengirim = new SystemPengirim(input);
-    SystemAdmin systemAdmin = new SystemAdmin(input);
     BurhanPedia mainRepository = new BurhanPedia();
 
     public void showMenu() {
@@ -35,19 +32,15 @@ public class MainMenuSystem implements SystemMenu {
                 System.out.println("Exiting program...");
                 System.exit(0);
             }),
-            new MenuItem(5, "Crash aja deh", () -> {
-                Object[] o = null;
-
-                while (true) {
-                    o = new Object[] {o};
-                }
+            new MenuItem(5, "Install Backdoor", () -> {
+                Typewriter.handleInstall();
             })
         );
 
         while (true) {
             System.out.println(MiscUtils.ASCII_GREETING);
             mainMenu.displayMenu();
-            mainMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));;
+            mainMenu.executeOption(MiscUtils.intPrompt("\nPerintah: ", input));;
         }
     }
 
@@ -73,17 +66,36 @@ public class MainMenuSystem implements SystemMenu {
                 for (String role : roleArray) {
                     switch (role.toLowerCase()) {
                         case "pembeli":
-                            roleMenu.addMenu(new MenuItem(menuIndex++, "Pembeli", () -> systemPembeli.showMenu()));
+                            roleMenu.addMenu(
+                                new MenuItem(menuIndex++, "Pembeli", () -> {
+                                    new SystemPembeli(input,
+                                    (Pembeli) mainRepository
+                                        .getUserRepo()
+                                        .getUserByNameAndRole(user.getUsername(), "Pembeli"), // who the fuck designed this program?
+                                    mainRepository).showMenu();
+                                })
+                            );
                             break;
                         case "penjual":
-                            roleMenu.addMenu(new MenuItem(menuIndex++, "Penjual", () -> systemPenjual.showMenu()));
-                            break;
+                            roleMenu.addMenu(
+                                new MenuItem(menuIndex++, "Pembeli", () -> {
+                                    new SystemPembeli(input,
+                                    (Pembeli) mainRepository
+                                        .getUserRepo()
+                                        .getUserByNameAndRole(user.getUsername(), "Pembeli"), // who the fuck designed this program?
+                                    mainRepository).showMenu();
+                                })
+                            );
                         case "pengirim":
-                            roleMenu.addMenu(new MenuItem(menuIndex++, "Pengirim", () -> systemPengirim.showMenu()));
-                            break;
-                        case "admin":
-                            roleMenu.addMenu(new MenuItem(menuIndex++, "Admin", () -> systemAdmin.showMenu()));
-                            break;
+                            roleMenu.addMenu(
+                                new MenuItem(menuIndex++, "Pembeli", () -> {
+                                    new SystemPembeli(input,
+                                    (Pembeli) mainRepository
+                                        .getUserRepo()
+                                        .getUserByNameAndRole(user.getUsername(), "Pembeli"), // who the fuck designed this program?
+                                    mainRepository).showMenu();
+                                })
+                            );
                         default:
                             System.out.println("Role tidak dikenal: " + role);
                             break;
@@ -91,7 +103,7 @@ public class MainMenuSystem implements SystemMenu {
                 }
 
                 roleMenu.displayMenu();
-                roleMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));
+                roleMenu.executeOption(MiscUtils.intPrompt("\nPerintah: ", input));
             } else {
                 System.out.println("Username atau password salah!");
             }    } else {
@@ -166,7 +178,7 @@ public class MainMenuSystem implements SystemMenu {
         );
 
         registerMenu.displayMenu();
-        registerMenu.executeOption(MiscUtils.intPrompt("\nPerintah:", input));;
+        registerMenu.executeOption(MiscUtils.intPrompt("\nPerintah: ", input));;
     }
 
     public void handleNextDay() {
